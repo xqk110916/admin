@@ -9,13 +9,13 @@ export default new Vuex.Store({
     aFoldStatus:false,
   },
   mutations: {
-    changeAFoldStatus (state, flag) {
-      state.aFoldStatus = flag
+    changeAFoldStatus (state) {
+      state.aFoldStatus = !state.aFoldStatus
     },
   },
   actions: {
-    changeAFoldStatus ({ commit }, flag) {
-      commit("changeAFoldStatus", flag)
+    changeAFoldStatus ({ commit }) {
+      commit("changeAFoldStatus")
     },
   },
   getters: {

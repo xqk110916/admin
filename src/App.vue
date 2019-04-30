@@ -18,6 +18,6 @@ export default {
 @import "./css/iconfont/iconfont.css";    /** iconfont图标 **/
 @import "./css/reset.css";    /** 清除默认样式 **/
 body {
-  font-family: "微软雅黑";
+  font-family: "Helvetica Neue, Helvetica";
 }
 </style>

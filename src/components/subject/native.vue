@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+    <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
       :collapse="isCollapse">
       <el-submenu index="1">
         <template slot="title">
@@ -33,10 +33,10 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex'
   export default {
     data() {
       return {
-        isCollapse: false,
         flex:'收起',
       };
     },
@@ -47,6 +47,9 @@
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       }
+    },
+    computed: {
+      ...mapState({isCollapse:'aFoldStatus'}),
     }
   }
 </script>
