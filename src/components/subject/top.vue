@@ -18,12 +18,14 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
+  import axios from '../../axios.js'
 
   export default {
     name: "top",
     data() {
       return {
         flag: true,
+        time:'',
       }
     },
     methods: {
@@ -31,17 +33,22 @@
 
       changeClass1 () {
         this.flag = !this.flag
-        console.log(this.$refs.inner)
-        
+        let inner = this.$refs.inner
+        inner.classList.remove('show')
+        clearTimeout(this.time)
       },
       changeClass2 () {
-        this.flag = !this.flag
+        let inner = this.$refs.inner
+        this.time = setTimeout(() => {
+          this.flag = !this.flag
+          inner.classList.add('show')
+        },800)
       },
       info () {
-
+        this.$router.push('/info')
       },
       quit () {
-
+        console.log("退出")
       }
     },
     computed: {
@@ -92,6 +99,7 @@
       color:#ccc;
       align-items: center;
       position: relative;
+      cursor:pointer;
 
       .inner {
         position: absolute;
@@ -99,17 +107,23 @@
         left: 10px;
         width: 121px;
         box-sizing:border-box;
+        border-radius:5px;
         border: 1px solid #999;
         box-shadow: 1px 1px #999;
         display: flex;
         flex-direction: column;
         align-items: center;
+        cursor:pointer;
 
         p {
           font-size: 16px;
           text-align: center;
           padding: 8px 0;
           color: #222;
+        }
+
+        p:hover {
+          color:#f00;
         }
       }
       .show {

@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import g from '../public/global.vue'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    companyName:'浙江南华资本管理有限公司',
+    companyName:g.companyName,
     aFoldStatus:false,
   },
   mutations: {

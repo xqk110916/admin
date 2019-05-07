@@ -1,12 +1,13 @@
 import axios from 'axios'
-import router from './router/index'
+import router from './router/router'
 import Vue from 'vue'
 import el from 'element-ui'
+import g from './public/global'
 
 Vue.use(el)
 const vm = new Vue()
 
-axios.defaults.baseURL = 'https://biz.nanhuacapital.com/tm_gm/'
+axios.defaults.baseURL = g.url
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.interceptors.request.use(function (config) {
