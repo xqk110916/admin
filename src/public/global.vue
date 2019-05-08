@@ -6,7 +6,16 @@ export default {
     name:'用户权限管理',
     path:'',
     children:[{
-      name:'',
+      name:'本地用户维护',
+      path:''
+    },{
+      name:'OA用户维护',
+      path:''
+    },{
+      name:'角色维护',
+      path:''
+    },{
+      name:'许可维护',
       path:''
     },]
   },{
