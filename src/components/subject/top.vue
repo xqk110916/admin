@@ -2,7 +2,7 @@
   <div class="content">
     <div class="left">
       <span class="name">{{companyName}}</span>
-      <i class="iconfont icon-zhankai1" title="展开列表" @click="unfold"></i>
+      <i class="iconfont icon-zhankai1" :title="title" @click="unfold"></i>
     </div>
     <div class="right" @mouseenter="changeClass1" @mouseleave="changeClass2">
       <p>sdagsdgjbbbkbkbkjsda</p>
@@ -18,7 +18,6 @@
 
 <script>
   import { mapState, mapActions } from 'vuex'
-  import axios from '../../axios.js'
 
   export default {
     name: "top",
@@ -26,10 +25,15 @@
       return {
         flag: true,
         time:'',
+        title:'收起列表',
+        show:true,
       }
     },
     methods: {
-      ...mapActions({unfold:'changeAFoldStatus'}),
+      unfold () {
+        this.flag = !this.flag
+        this.$emit("show", this.flag)
+      },
 
       changeClass1 () {
         this.flag = !this.flag
@@ -66,6 +70,7 @@
     font-size: 18px;
     display: flex;
     justify-content: space-between;
+    border:none;
 
     .left {
       float: left;
@@ -74,7 +79,7 @@
       align-items: center;
 
       .name {
-        padding: 0 10px;
+        padding: 0 20px;
         color: #fff;
       }
 

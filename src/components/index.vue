@@ -1,7 +1,13 @@
 <template>
   <div>
-    <Top></Top>
-    <Nav></Nav>
+    <el-container style="height:100%;">
+      <el-header>
+        <Top @show="onShow"></Top>
+      </el-header>
+      <el-aside class="nav" style="width:218px;" ref="nav">
+        <Nav></Nav>
+      </el-aside>
+    </el-container>
   </div>
 </template>
 
@@ -16,8 +22,17 @@ export default {
 
     }
   },
+  created () {
+    
+  },
   methods:{
-
+    onShow (flag) {
+      if(!flag) {
+        this.$(this.$refs.nav.$el).fadeOut(500)
+      } else {
+        this.$(this.$refs.nav.$el).fadeIn(500)
+      }
+    }
   },
   components:{
     Nav,
@@ -27,5 +42,12 @@ export default {
 </script>
 
 <style>
+header {
+  height: 46px !important;
+  padding:0 !important;
+}
 
+aside {
+  height: calc(100vh - 46px);
+}
 </style>

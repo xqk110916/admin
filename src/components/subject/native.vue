@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-menu class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" router unique-opened background-color="#eee"
+    <el-menu class="el-menu-vertical-demo bottom" @open="handleOpen" @close="handleClose" router unique-opened background-color="#eee"
       :collapse="isCollapse">
-      <el-submenu v-for="item in g.nav" :index="item.path" :key="item.name">
+      <el-submenu v-for="item in g.nav" :index="item.name" :key="item.name">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">{{item.name}}</span>
@@ -18,11 +18,15 @@
 <script>
   import { mapState } from 'vuex'
   import g from '../../public/global.vue'
+  
   export default {
     data() {
       return {
         flex:'收起',
       };
+    },
+    created(){
+
     },
     methods: {
       handleOpen(key, keyPath) {
@@ -30,7 +34,7 @@
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
-      }
+      },
     },
     computed: {
       ...mapState({isCollapse:'aFoldStatus'}),
@@ -46,5 +50,9 @@
 
   .icon-zhankai {
     font-size:32px;
+  }
+
+  .bottom {
+    border-bottom:1px solid #000;
   }
 </style>
