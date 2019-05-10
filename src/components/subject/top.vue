@@ -33,6 +33,11 @@
       unfold () {
         this.flag = !this.flag
         this.$emit("show", this.flag)
+        if(this.flag) {
+          this.title = "收起列表"
+        } else {
+          this.title = "展开列表"
+        }
       },
 
       changeClass1 () {

@@ -1,14 +1,16 @@
 <template>
   <div>
-    <el-menu class="el-menu-vertical-demo bottom" @open="handleOpen" @close="handleClose" router unique-opened background-color="#eee"
+    <el-menu class="el-menu-vertical-demo bottom" @open="handleOpen" @close="handleClose" router unique-opened background-color="#eee" text-color="#111"
       :collapse="isCollapse">
       <el-submenu v-for="item in g.nav" :index="item.name" :key="item.name">
         <template slot="title">
-          <i class="el-icon-location"></i>
           <span slot="title">{{item.name}}</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item v-for="subset in item.children" :key="subset.name" :index="subset.path">{{subset.name}}</el-menu-item>
+          <el-menu-item v-for="subset in item.children" :key="subset.name" :index="subset.name">
+            <i class="iconfont icon-ic_arrow_r"></i>
+            {{subset.name}}
+          </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -54,5 +56,18 @@
 
   .bottom {
     border-bottom:1px solid #000;
+  }
+
+  .el-icon-arrow-righ {
+    width:12px !important;
+  }
+
+  .el-menu-item-group__title {
+    display:none !important;
+  }
+
+  .el-submenu {
+    box-sizing: border-box;
+    border-bottom: 1px solid #fff !important;
   }
 </style>
