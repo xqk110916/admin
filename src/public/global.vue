@@ -7,16 +7,16 @@ export default {
     path:'',
     children:[{
       name:'本地用户维护',
-      path:''
+      path:'/localUser/1'
     },{
       name:'OA用户维护',
-      path:''
+      path:'/localUser/2'
     },{
       name:'角色维护',
-      path:''
+      path:'/PFCG'
     },{
       name:'许可维护',
-      path:''
+      path:'/PTM'
     },]
   },{
     name:'web客户端管理',

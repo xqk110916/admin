@@ -7,7 +7,7 @@
           <span slot="title">{{item.name}}</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item v-for="subset in item.children" :key="subset.name" :index="subset.name">
+          <el-menu-item v-for="subset in item.children" :key="subset.name" :index="subset.path" @click="addTag">
             <i class="iconfont icon-ic_arrow_r"></i>
             {{subset.name}}
           </el-menu-item>
@@ -36,6 +36,9 @@
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      addTag(a) {
+        console.log(a)
       },
     },
     computed: {

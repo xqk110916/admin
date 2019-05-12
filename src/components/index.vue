@@ -10,7 +10,7 @@
         </el-aside>
 
         <el-main>
-          <Tags></Tags>
+          <Tags ref="tag"></Tags>
           <router-view></router-view>
         </el-main>
       </div>

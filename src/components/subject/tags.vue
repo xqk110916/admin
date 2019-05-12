@@ -1,10 +1,10 @@
 <template>
   <div class="navTags">
     <el-tabs @tab-click="handleClick" class="index">
-      <el-tab-pane label="我的桌面" name="first"></el-tab-pane>
+      <el-tab-pane label="我的桌面" name="/"></el-tab-pane>
     </el-tabs>
-    <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
-      <el-tab-pane v-for="(item, index) in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+    <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="active">
+      <el-tab-pane v-for="(item, index) in editableTabs" :key="index" :label="item.title" :name="item.name">
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -29,12 +29,14 @@
     },
     methods: {
       active(tag) {
-        console.log(tag)
+        console.log(tag.name)
       },
-      handleClick(tab, event) {
-        console.log(tab, event)
+      handleClick(tag, event) {
+        console.log(tag.name)
         this.editableTabsValue = ''
+        this.$router.push(tag.name)
       },
+
       addTab(targetName) {
         let newTabName = ++this.tabIndex + '';
         this.editableTabs2.push({
