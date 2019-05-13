@@ -8,6 +8,10 @@ import localUser from '../views/UserRight/localUser.vue'
 import PFCG from '../views/UserRight/PFCG.vue'
 import PTM from '../views/UserRight/PTM.vue'
 
+import allClient from '../views/web/allClient.vue'
+import audit from '../views/web/audit.vue'
+import seeAudit from '../views/web/seeAudit.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -17,15 +21,15 @@ export default new Router({
       name:"defaults",
       component:defaults
     },{
-      path:'/localUser',
+      path:'/errorInfo',
+      name:'not',
+      component:not
+    },
+    
+    {
+      path:'/localUser/:id',
       name:'localUser',
-      children:[{
-        path:'/1',
-        component:localUser
-      },{
-        path:'/2',
-        component:localUser
-      }]
+      component:localUser
     },{
       path:'/PFCG',
       name:'PFCG',
@@ -34,6 +38,20 @@ export default new Router({
       path:'PTM',
       name:'PTM',
       component:PTM
-    }
+    },
+
+    {
+      path:'/allClient',
+      name:'allClient',
+      component:allClient
+    },{
+      path:'/audit',
+      name:'audit',
+      component:audit
+    },{
+      path:'seeAudit',
+      name:'seeAudit',
+      component:seeAudit
+    },
   ]
 })

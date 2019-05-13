@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{name}}
+        
     </div>
 </template>
 
@@ -9,20 +9,20 @@ export default {
     name:'PTM',
     data () {
         return {
-            name:'111'
+            id:''
         }
     },
     created () {
-
+        console.log(1)
     },
     methods: {
 
     },
     watch: {
         $route: {
-            handle(newValue, oldVaule) {
+            handler(newValue, oldVaule) {
                 console.log(newValue)
-                this.name = newValue
+                this.id = newValue.params.id
             },
             immediate: true
         }

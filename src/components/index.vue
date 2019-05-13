@@ -6,7 +6,7 @@
       </el-header>
       <div class="main">
         <el-aside class="nav" style="width:218px;" ref="nav">
-          <Nav></Nav>
+          <Nav @addTag="onAddTag"></Nav>
         </el-aside>
 
         <el-main>
@@ -45,6 +45,9 @@
         } else {
           this.$(this.$refs.nav.$el).fadeIn(500)
         }
+      },
+      onAddTag (obj) {
+        this.$refs.tag.CheckToHeavy(obj)
       }
     },
     components: {

@@ -32,13 +32,19 @@
     },
     methods: {
       handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
+        // console.log(key, keyPath);
       },
-      addTag(a) {
-        console.log(a)
+      addTag(dom) {
+        let name = dom.$el.innerText
+        let path = dom.$options.propsData.index
+        let obj = {
+          name,
+          path
+        }
+        this.$emit('addTag',obj)
       },
     },
     computed: {

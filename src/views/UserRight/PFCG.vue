@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{name}}
+       
     </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
     name:'PECG',
     data () {
         return {
-            name:'222'
+            id:'',
         }
     },
     created () {
@@ -20,10 +20,11 @@ export default {
     },
     watch: {
         $route: {
-            handle(newValue, oldVaule) {
+            handler(newValue, oldVaule) {
                 console.log(newValue)
-                this.name = newValue
+                this.id = newValue.params.id
             },
+            deep: true,
             immediate: true
         }
     }

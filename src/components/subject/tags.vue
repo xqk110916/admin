@@ -14,54 +14,65 @@
   export default {
     data() {
       return {
-        editableTabsValue: '2',
-        editableTabs: [{
-          title: 'Tab 1',
-          name: '1',
-          content: 'Tab 1 content'
-        }, {
-          title: 'Tab 2',
-          name: '2',
-          content: 'Tab 2 content'
-        }],
-        tabIndex: 2
+        editableTabsValue: '/',
+        editableTabs: [],
+        tabIndex: ''
       }
     },
     methods: {
       active(tag) {
-        console.log(tag.name)
+        this.$router.push(tag.name)
       },
       handleClick(tag, event) {
-        console.log(tag.name)
         this.editableTabsValue = ''
         this.$router.push(tag.name)
       },
-
-      addTab(targetName) {
-        let newTabName = ++this.tabIndex + '';
-        this.editableTabs2.push({
-          title: 'New Tab',
-          name: newTabName,
-          content: 'New Tab content'
+      // 添加标签
+      addTags(obj) {
+        console.log("addTag")
+        let newTabName = obj.name;
+        let newTabPath = obj.path
+        this.editableTabs.push({
+          title: newTabName,
+          name: newTabPath,
         });
-        this.editableTabsValue2 = newTabName;
+        this.editableTabsValue = newTabPath;
+      },
+      // 检查去重
+      CheckToHeavy(obj) {
+        if (this.editableTabs.length) {
+          for(let i=0;i<this.editableTabs.length;i++) {
+            if (obj.name == this.editableTabs[i].title) {
+              this.editableTabsValue = obj.path;
+              return
+            }
+          }
+          if(this.editableTabs.length > 4) {
+            this.editableTabs.splice(0,1)
+          }
+          this.addTags(obj)
+        } else {
+          this.addTags(obj)
+        }
+
       },
       removeTab(targetName) {
-        let tabs = this.editableTabs2;
-        let activeName = this.editableTabsValue2;
+        let tabs = this.editableTabs;
+        let activeName = this.editableTabsValue;
         if (activeName === targetName) {
           tabs.forEach((tab, index) => {
             if (tab.name === targetName) {
               let nextTab = tabs[index + 1] || tabs[index - 1];
               if (nextTab) {
                 activeName = nextTab.name;
+                this.$router.push(nextTab.name)
               }
             }
           });
         }
 
-        this.editableTabsValue2 = activeName;
-        this.editableTabs2 = tabs.filter(tab => tab.name !== targetName);
+        this.editableTabsValue = activeName;
+        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
       },
 
     }

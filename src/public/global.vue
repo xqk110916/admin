@@ -4,7 +4,6 @@ export default {
   url:'https://biz.nanhuacapital.com/tm_gm/',
   nav:[{
     name:'用户权限管理',
-    path:'',
     children:[{
       name:'本地用户维护',
       path:'/localUser/1'
@@ -20,10 +19,15 @@ export default {
     },]
   },{
     name:'web客户端管理',
-    path:'',
     children:[{
-      name:'',
-      path:''
+      name:'查看web端所有客户',
+      path:'/allClient'
+    },{
+      name:'审核客户绑定',
+      path:'/audit'
+    },{
+      name:'查看审核记录',
+      path:'/seeAudit'
     },]
   },{
     name:'客户信息管理',
