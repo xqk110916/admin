@@ -1,7 +1,11 @@
 <template>
   <div class="navTags">
-    <el-tabs @tab-click="handleClick" class="index">
-      <el-tab-pane label="我的桌面" name="/"></el-tab-pane>
+    <el-tabs v-model="editableTabsValue" @tab-click="handleClick" class="index">
+      <el-tab-pane name="/">
+        <span slot="label" class="tabIndex">
+          <i class="iconfont icon-fangzi"></i>我的桌面
+        </span>
+      </el-tab-pane>
     </el-tabs>
     <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab" @tab-click="active">
       <el-tab-pane v-for="(item, index) in editableTabs" :key="index" :label="item.title" :name="item.name">
@@ -41,14 +45,14 @@
       // 检查去重
       CheckToHeavy(obj) {
         if (this.editableTabs.length) {
-          for(let i=0;i<this.editableTabs.length;i++) {
+          for (let i = 0; i < this.editableTabs.length; i++) {
             if (obj.name == this.editableTabs[i].title) {
               this.editableTabsValue = obj.path;
               return
             }
           }
-          if(this.editableTabs.length > 4) {
-            this.editableTabs.splice(0,1)
+          if (this.editableTabs.length >= 4) {
+            this.editableTabs.splice(0, 1)
           }
           this.addTags(obj)
         } else {
@@ -81,8 +85,17 @@
 
 <style lang="scss" scoped>
   .navTags {
-    height: 36px;
+    height: 40px;
     display: flex;
+
+    .tabIndex {
+      display: flex;
+      align-items: center;
+      .iconfont {
+        font-size: 20px;
+      }
+    }
+    
   }
 
   .index {

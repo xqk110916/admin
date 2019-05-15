@@ -11,10 +11,11 @@
 
         <el-main>
           <Tags ref="tag"></Tags>
-          <router-view></router-view>
+          <div class="routerViews">
+            <router-view></router-view>
+          </div>
         </el-main>
       </div>
-
 
       <el-footer>
         <p>Copyright © 2004-2018 Nanhua Futures Co.,Ltd.All Rights Reserved.</p>
@@ -89,5 +90,14 @@
   .el-main {
     padding: 0 !important;
   } 
-  
+
+  .routerViews {
+    padding:10px;
+  }
+
+  .el-tag--small {
+    max-width: 100px;
+    overflow: hidden;
+  }
+
 </style>

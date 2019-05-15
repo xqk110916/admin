@@ -1,36 +1,60 @@
 <template>
     <div>
-        
+        <div>
+            <Search type="Array" @query="query">
+                <div slot="right">
+                    <el-button type="primary" @click="refresh" size="small">刷新</el-button>
+                </div>
+            </Search>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
-    name:'localUser',
-    data () {
-        return {
-            id:'',
-        }
-    },
-    created () {
+    import Search from '../../components/search'
 
-    },
-    methods: {
+    export default {
+        name: 'localUser',
+        data() {
+            return {
+                id: '',
+            }
+        },
+        created() {
 
-    },
-    watch: {
-        $route: {
-            handler(newValue, oldVaule) {
-                console.log(newValue)
-                this.id = newValue.params.id
+        },
+        methods: {
+            refresh(){
+                console.log("刷新")
             },
-            deep: true,
-            immediate: true
+            query(id){
+                console.log("查询", id)
+            },
+        },
+        components: {
+            Search
+        },
+        watch: {
+            $route: {
+                handler(newValue, oldVaule) {
+                    this.id = newValue.params.id
+                },
+                deep: true,
+                immediate: true
+            }
+        },
+        computed: {
+            url() {
+                if (this.id == 1) {
+                    return "11111"
+                } else if (this.id == 2) {
+                    return "2222222"
+                }
+            }
         }
     }
-}
 </script>
 
-<style>
+<style scoped>
 
 </style>

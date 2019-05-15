@@ -21,10 +21,34 @@
       Index,
       Login
     },
+    created() {
+      if (sessionStorage.getItem('state')) {
+        this.$store.replaceState(Object.assign({}, this.$store.state,
+          JSON.parse(sessionStorage.getItem('state'))))
+      }
+
+      if (window.addEventListener) {
+        window.addEventListener("keyup", this.F5_, true)
+        window.addEventListener("beforeunload", this.reload, true)
+      } else {
+        window.attachEvent("onkeyup", this.F5_)
+        window.attachEvent("onbeforeunload", this.reload)
+      }
+    },
+    methods: {
+      F5_(e) {
+        if (e.keyCode == 116) {
+          // this.$router.push('/')
+        }
+      },
+      reload() {
+        
+      }
+    },
     watch: {
       $route: {
         handler(newValue, oldVaule) {
-          if(newValue.path === '/Login') {
+          if (newValue.path === '/Login') {
             this.com = 'Login'
           } else {
             this.com = 'Index'

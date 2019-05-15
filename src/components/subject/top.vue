@@ -31,6 +31,7 @@
     },
     methods: {
       unfold () {
+        console.log(this.$store)
         this.flag = !this.flag
         this.$emit("show", this.flag)
         if(this.flag) {
@@ -58,6 +59,8 @@
       },
       quit () {
         console.log("退出")
+        this.changeClass2()
+        this.$router.push('/Login')
       }
     },
     computed: {
@@ -116,6 +119,8 @@
         top: 50px;
         left: 10px;
         width: 121px;
+        background: #fff;
+        z-index: 10;
         box-sizing:border-box;
         border-radius:5px;
         border: 1px solid #999;

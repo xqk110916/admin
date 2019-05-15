@@ -12,6 +12,8 @@ export default new Vuex.Store({
   mutations: {
     changeAFoldStatus (state) {
       state.aFoldStatus = !state.aFoldStatus
+      sessionStorage.setItem('state',JSON.stringify(this.$store.state) )
+      console.log(1)
     },
   },
   actions: {
