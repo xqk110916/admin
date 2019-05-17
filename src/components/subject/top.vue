@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="left">
-      <span class="name">{{companyName}}</span>
+      <span class="name">{{g.companyName}}</span>
       <i class="iconfont icon-zhankai1" :title="title" @click="unfold"></i>
     </div>
     <div class="right" @mouseenter="changeClass1" @mouseleave="changeClass2">

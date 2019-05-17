@@ -1,10 +1,11 @@
+审核客户绑定
 <template>
   
 </template>
 
 <script>
 export default {
-  name:'seeAudit',
+  name:"audit",
 }
 </script>
 

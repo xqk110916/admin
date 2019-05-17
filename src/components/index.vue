@@ -49,7 +49,8 @@
       },
       onAddTag (obj) {
         this.$refs.tag.CheckToHeavy(obj)
-      }
+      },
+
     },
     components: {
       Nav,
@@ -92,12 +93,21 @@
   } 
 
   .routerViews {
+    box-sizing: border-box;
+    height: calc(100vh - 46px - 40px - 40px);
     padding:10px;
   }
 
   .el-tag--small {
     max-width: 100px;
     overflow: hidden;
+  }
+
+  #search {
+    height: 40px;
+    padding:10px 0;
+    min-width: 900px;
+    display: flex;
   }
 
 </style>

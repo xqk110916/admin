@@ -1,13 +1,12 @@
 <template>
   <div>
-    <div class="date">
-      <el-date-picker v-model="start" type="date" placeholder="选择开始日期" value-format="yyyyMMdd" @change="changeStart">
+    <div>
+      <el-date-picker v-model="start" type="date" placeholder="选择开始日期" :value-format="types" @change="changeStart" class="date">
       </el-date-picker>
-      <el-date-picker v-model="end" type="date" placeholder="选择结束日期" value-format="yyyyMMdd" @change="changeEnd" v-if="!size" class="end">
+      <el-date-picker v-model="end" type="date" placeholder="选择结束日期" :value-format="types" @change="changeEnd" v-if="size" class="date">
       </el-date-picker>
-      <div class="right">
-        <slot name="right"></slot>
-      </div>
+      <el-button type="primary" size="small" class="query" @click="query" :loading="loading" v-if="search"> {{loading?"":"查询"}}
+      </el-button>
     </div>
   </div>
 </template>
@@ -19,6 +18,7 @@
       return {
         start: this.startDate,
         end: this.endDate,
+        loading: false,
       }
     },
     created() {
@@ -30,52 +30,63 @@
       },
       changeEnd(val) {
         this.$emit("update:endDate", val)
-      }
+      },
+      query() {
+        this.loading = true
+        this.$emit("query", this.clientId)
+      },
     },
     watch: {
-      // 默认时间为上个月的第一天到上个月的最后一天.如果为单个时间则默认时间为当天
+      // 默认时间为上个月的第一天到上个月的最后一天.如果为单个时间则默认时间为当天.如果改变数据类型，则不进行默认赋值
       start:{
         handler(newValue, oldValue) {
-          if(!newValue) {
+          // 进行默认赋值
+          if(!newValue && !this.type) {
             if(this.size) {
               this.start = this.way.getNow()
             } else {
               this.start = this.way.getBeforeFirstDay()
-              this.changeStart(this.start)
             }
           }
+
+          this.changeStart(this.start)
         },
         immediate:true,
       },
       end:{
         handler(newValue, oldValue) {
-          if(!newValue) {
+          // 进行默认赋值
+          if(!newValue && !this.type) {
             this.end = this.way.getBeforeLastDay()
-            this.changeEnd(this.end)
           }
+          this.changeEnd(this.end)
         },
         immediate:true,
-      }
+      },
+
     },
     props: {
       startDate: String,
       endDate: String,
-      size: Number,
-    }
+      size: Boolean,
+      type:String,
+      search:Boolean,
+    },
+    computed: {
+      types () {
+        return this.type?this.type:"yyyyMMdd"
+      }
+    },
   }
 </script>
 
 <style scoped>
+
 .date {
-  padding:10px 0;
-  height: 40px;
+  margin-right: 6px;
 }
 
-.right {
-  float: right;
-}
-
-.end {
-  margin-left: 10px;
+.el-date-editor.el-input, .el-date-editor.el-input__inner {
+    width:140px !important;
 }
 </style>

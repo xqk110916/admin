@@ -1,7 +1,7 @@
 <script>
 export default {
   companyName:'浙江南华资本管理有限公司',
-  url:'https://biz.nanhuacapital.com/tm_gm/',
+  url:' https://www.easy-mock.com/mock/5cd125e7f13c0f52e6147e8e',
   nav:[{
     name:'用户权限管理',
     children:[{
@@ -33,15 +33,24 @@ export default {
     name:'客户信息管理',
     path:'',
     children:[{
-      name:'',
-      path:''
+      name:'银行信息管理',
+      path:'/bank'
+    },{
+      name:'部门信息管理',
+      path:'/section'
+    },{
+      name:'辖区信息管理',
+      path:'/area'
+    },{
+      name:'客户基本资料 ',
+      path:'/clientDetails'
     },]
   },{
     name:'客户资金管理',
     path:'',
     children:[{
-      name:'',
-      path:''
+      name:'客户资金账户',
+      path:'/capitalAccount '
     },]
   },{
     name:'报价配置管理',

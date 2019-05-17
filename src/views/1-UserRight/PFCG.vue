@@ -1,7 +1,8 @@
+角色维护
 <template>
     <div>
-        <div>
-            <dateField :startDate.sync="startDate" :endDate.sync="endDate" @update:startDate="changeStartDate" @update:endDate="changeEndDate" :size="1">
+        <div id="search">
+            <dateField :startDate.sync="startDate" :endDate.sync="endDate" @update:startDate="changeStartDate" @update:endDate="changeEndDate" size type="yyyy-MM-dd">
             </dateField>
         </div>
     </div>

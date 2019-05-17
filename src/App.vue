@@ -22,27 +22,32 @@
       Login
     },
     created() {
+      
       if (sessionStorage.getItem('state')) {
         this.$store.replaceState(Object.assign({}, this.$store.state,
           JSON.parse(sessionStorage.getItem('state'))))
       }
 
       if (window.addEventListener) {
-        window.addEventListener("keyup", this.F5_, true)
         window.addEventListener("beforeunload", this.reload, true)
+        window.addEventListener("resize", this.resize, true)
       } else {
-        window.attachEvent("onkeyup", this.F5_)
         window.attachEvent("onbeforeunload", this.reload)
+        window.attachEvent("onresize", this.resize)
       }
     },
+    mounted(){
+      this.resize()
+    },
     methods: {
-      F5_(e) {
-        if (e.keyCode == 116) {
-          // this.$router.push('/')
-        }
-      },
       reload() {
-        
+        sessionStorage.setItem('state',JSON.stringify(this.$store.state) )
+      },
+      resize() {
+        let dom = document.documentElement
+        let h = dom.getBoundingClientRect().height
+        let height = h - 46 - 40 - 60 - 40 - 20 - 32   //动态设置表单的高度，视口高度 - top组件的高度 - 标签组件的高度 - 筛选组件的高度 - footer组件的高度 - 上下padding - 分页器
+        this.$store.dispatch("changeHeight",height)
       }
     },
     watch: {

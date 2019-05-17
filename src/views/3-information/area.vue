@@ -1,13 +1,14 @@
+辖区信息管理
 <template>
   
 </template>
 
 <script>
 export default {
-  name:"allClient",
+  name:'area'
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

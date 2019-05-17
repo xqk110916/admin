@@ -1,27 +1,33 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import g from '../public/global.vue'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    companyName:g.companyName,
     aFoldStatus:false,
+    height:750,
   },
   mutations: {
     changeAFoldStatus (state) {
       state.aFoldStatus = !state.aFoldStatus
-      sessionStorage.setItem('state',JSON.stringify(this.$store.state) )
-      console.log(1)
+    },
+    changeHeight (state, height) {
+      state.height = height
+      
     },
   },
   actions: {
     changeAFoldStatus ({ commit }) {
       commit("changeAFoldStatus")
     },
+    changeHeight ({ commit }, height) {
+      commit("changeHeight", height)
+    },
   },
   getters: {
-
+    Height(state){
+      return state.height
+    }
   }
 })

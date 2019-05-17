@@ -1,0 +1,24 @@
+/subject  下组件是定义Index界面中的固有界面组件
+	/native.vue  导航栏组件（数据是由@/public/global.vue中导出的）
+	/tags.vue  定义打开页面的显示标签组件（最多限制为5个）
+	/top.vue  定义头部组件，主要用来切换导航栏的显示与隐藏与个人信息界面
+
+dateField.vue  定义日期组件
+	可选参数：开始时间（startDate）默认为上月一号，结束时间（endDate）默认为上月底。 时间格式默认为yyyyMMdd格式。不支持不选择时间
+		  size  属性，值为布尔值。如果不传则代表只需显示一个开始时间，只显示一个时默认开始时间为当天
+		  type  属性，定义时间格式，默认为yyyyMMdd格式，如需改变则通过type属性传递。改变默认时间格式后将不进行默认赋值
+
+fuzzyQuery.vue  定义模糊查询组件
+	可选参数：type  属性，值为String类型，定义select的单选或多选模式。默认为单选。如需多选。将type属性的值传递为“Array”
+		  search  属性，值为布尔值。表示是否需要查询按钮。默认为false，不需要查询按钮
+
+Index.vue  定义主界面模板和布局展示（主要内容由路由界面显示）
+
+page.vue  定义分页器组件
+	可选参数：page  属性，值为Number类型。定义页码。默认为1.
+		  pagesize  属性，值为Number类型，定义一页展示多少数据。默认为20.
+		  sizeArr  属性，值为Array类型，定义可选条数列表。如果传递该参数但未传pagesize属性，默认为数组的第一项 
+		  total  属性（必传），值为Number类型。定义数据总条数。
+		  
+
+
