@@ -33,7 +33,6 @@
       },
       // 添加标签
       addTags(obj) {
-        console.log("addTag")
         let newTabName = obj.name;
         let newTabPath = obj.path
         this.editableTabs.push({
@@ -44,6 +43,7 @@
       },
       // 检查去重
       CheckToHeavy(obj) {
+        window.sessionStorage.setItem("activeTag",`${obj.name},${obj.path}`)
         if (this.editableTabs.length) {
           for (let i = 0; i < this.editableTabs.length; i++) {
             if (obj.name == this.editableTabs[i].title) {

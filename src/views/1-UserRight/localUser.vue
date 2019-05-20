@@ -3,12 +3,20 @@
     <div>
         <div>
             <div id="search">
-                <fuzzyQuery ref="search" type="Array"></fuzzyQuery>
-                <dateField search size @query="query"></dateField>
+                <el-select v-model="department" placeholder="请选择部门" clearable size="small" @change="dmChange">
+                    <el-option v-for="item in dmOptions" :key="item" :label="item" :value="item">
+                    </el-option>
+                </el-select>
+                <el-select v-model="group" placeholder="请选择组" clearable size="small" @change="groupChange">
+                    <el-option v-for="item in groupOptions" :key="item" :label="item" :value="item">
+                    </el-option>
+                </el-select>
+                <el-input v-model.lazy="searchValue" placeholder="请输入用户名关键字" size="small" style="width:250px;">
+                </el-input>
             </div>
 
             <div>
-                <el-table :data="data" border :height="Height" v-loading="loading">
+                <el-table :data="data" border :height="Height" v-loading="loading" v-loadmore="handleScroll">
                     <el-table-column prop="string1" label="日期" width="180">
                     </el-table-column>
                     <el-table-column prop="string2" label="姓名" width="180">
@@ -56,7 +64,8 @@
     import dateField from '../../components/dateField'
     import Page from '../../components/page.vue'
     import {
-        mapGetters
+        mapGetters,
+        mapActions
     } from 'vuex'
 
     export default {
@@ -67,32 +76,43 @@
                 data: [],
                 page: 1,
                 pagesize: 20,
-                total: 40,
+                total: 20,
                 loading: false,
+                flag: false,
+
+                department: '',
+                group: '',
+                dmOptions: [],
+                groupOptions: [],
+                searchValue: '',
+                option: [],
             }
         },
         created() {
             this.getId()
+            this.query()
+
+        },
+        mounted() {
+
         },
         methods: {
+            ...mapActions(['changeSearchStatus']),
+
             query(id) {
                 this.loading = true
                 return new Promise((reslove, reject) => {
                     this.axios.post(this.url).then(result => {
-                        this.data = result.data.data.data
+                        this.data.push(...result.data.data.data)
                         reslove()
                     })
                 }).then(() => {
-                    this.$refs.search.loading = false
+                    this.changeSearchStatus(false)
                     this.loading = false
                 })
             },
-
             getId() {
                 this.id = this.$route.params.id
-            },
-            refresh() {
-                console.log("刷新")
             },
             changePageSize(val) {
                 this.pagesize = val
@@ -101,7 +121,69 @@
             changePage(val) {
                 this.page = val
                 this.query()
-            }
+            },
+            // 滚动加载事件
+            handleScroll(e) {
+                if (e == 0 && !this.flag) {
+                    this.flag = true
+                    this.query().then(() => {
+                        this.flag = false
+                    }, () => {
+                        this.flag = false
+                    })
+                }
+            },
+            // select框事件处理
+            dmChange(val) {
+
+            },
+            groupChange(val) {
+
+            },
+            // select框数据获取
+            getListInfo: function () {
+                return new Promise((reslove, reject) => {
+                    this.axios.post('manage/dept/queryAll.do').then((result) => {
+                        if (result.data.success) {
+                            if (result.data.list) {
+                                this.dmOptions = result.data.list
+                                this.dmOptions.forEach(element => {
+                                    let obj = {}
+                                    obj["value"] = element
+                                    obj["label"] = element
+                                    this.option.push(obj)
+                                });
+                            } else {
+                                this.dmOptions = []
+                                this.option = []
+                            }
+                        } else {
+                            this.dmOptions = []
+                            this.option = []
+                            this.$message({
+                                type: 'error',
+                                message: '获取部门失败!',
+                                showClose: true
+                            })
+                        }
+                    })
+                })
+            },
+            dmChange() {
+                return new Promise((reslove, reject) => {
+                    this.axios.post('manage/group/queryAll.do', this.qs.stringify({
+                        deptName: this.department
+                    })).then((result) => {
+                        if (result.data.success && result.data.list) {
+                            this.groupOptions = result.data.list
+                        } else {
+                            this.groupOptions = []
+                        }
+
+                    })
+                })
+
+            },
         },
         components: {
             fuzzyQuery,

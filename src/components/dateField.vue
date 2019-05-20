@@ -5,26 +5,28 @@
       </el-date-picker>
       <el-date-picker v-model="end" type="date" placeholder="选择结束日期" :value-format="types" @change="changeEnd" v-if="size" class="date">
       </el-date-picker>
-      <el-button type="primary" size="small" class="query" @click="query" :loading="loading" v-if="search"> {{loading?"":"查询"}}
+      <el-button type="primary" size="small" class="query" @click="query" :loading="SearchStatus" v-if="search"> {{SearchStatus?"":"查询"}}
       </el-button>
     </div>
   </div>
 </template>
 
 <script>
+  import {mapGetters, mapActions} from 'vuex'
   export default {
     name: 'deteField',
     data() {
       return {
         start: this.startDate,
         end: this.endDate,
-        loading: false,
       }
     },
     created() {
 
     },
     methods: {
+      ...mapActions(['changeSearchStatus']),
+
       changeStart(val) {
         this.$emit("update:startDate", val)
       },
@@ -32,7 +34,7 @@
         this.$emit("update:endDate", val)
       },
       query() {
-        this.loading = true
+        this.changeSearchStatus(true)
         this.$emit("query", this.clientId)
       },
     },
@@ -75,7 +77,8 @@
     computed: {
       types () {
         return this.type?this.type:"yyyyMMdd"
-      }
+      },
+      ...mapGetters(['SearchStatus'])
     },
   }
 </script>

@@ -11,7 +11,7 @@
 
         <el-main>
           <Tags ref="tag"></Tags>
-          <div class="routerViews">
+          <div class="routerViews" ref="routerViews">
             <router-view></router-view>
           </div>
         </el-main>
@@ -28,6 +28,20 @@
   import Nav from './subject/native' //导航栏
   import Top from './subject/top' //顶部信息
   import Tags from './subject/tags' //导航标签组件
+  import Vue from 'vue'
+
+  Vue.directive('loadmore', {
+    bind(el, binding) {
+      const selectWrap = el.querySelector('.el-table__body-wrapper')
+      selectWrap.addEventListener('scroll', function () {
+        let sign = 100
+        const scrollDistance = this.scrollHeight - this.scrollTop - this.clientHeight
+        if (scrollDistance <= sign) {
+          binding.value(0)
+        }
+      })
+    }
+  })
 
   export default {
     name: "index",
@@ -36,8 +50,9 @@
 
       }
     },
-    created() {
-
+    mounted() {
+      // 刷新界面过后保留当前选中的界面
+      this.createSetTag()
     },
     methods: {
       onShow(flag) {
@@ -47,16 +62,30 @@
           this.$(this.$refs.nav.$el).fadeIn(500)
         }
       },
-      onAddTag (obj) {
+      onAddTag(obj) {
         this.$refs.tag.CheckToHeavy(obj)
       },
-
+      createSetTag() {
+        let path = window.sessionStorage.getItem("activeTag")
+        if (window.sessionStorage.getItem("activeTag")) {
+          let pathArr = path.split(',')
+          let obj = {
+            path: pathArr[1],
+            name: pathArr[0]
+          }
+          this.onAddTag(obj)
+        }
+      },
     },
     components: {
       Nav,
       Top,
       Tags,
-    }
+    },
+    watch: {
+
+    },
+
   }
 </script>
 
@@ -90,12 +119,12 @@
 
   .el-main {
     padding: 0 !important;
-  } 
+  }
 
   .routerViews {
     box-sizing: border-box;
     height: calc(100vh - 46px - 40px - 40px);
-    padding:10px;
+    padding: 10px;
   }
 
   .el-tag--small {
@@ -105,9 +134,8 @@
 
   #search {
     height: 40px;
-    padding:10px 0;
+    padding: 10px 0;
     min-width: 900px;
     display: flex;
   }
-
 </style>

@@ -11,7 +11,7 @@
         <el-option v-for="item in options" :key="item.clientId" :label="item.clientName" :value="item.clientId">
         </el-option>
       </el-select>
-      <el-button type="primary" size="small" class="query" @click="query" :loading="loading" v-if="search"> {{loading?"":"查询"}}
+      <el-button type="primary" size="small" class="query" @click="query" :loading="SearchStatus" v-if="search"> {{SearchStatus?"":"查询"}}
       </el-button>
 
     </div>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+  import {mapGetters,mapActions} from 'vuex'
   export default {
     name: "fuzzyQuery",
     data() {
@@ -61,6 +62,8 @@
       }
     },
     methods: {
+      ...mapActions(['changeSearchStatus']),
+
       getAllClient() {
         return new Promise((reslove, reject) => {
           this.axios.post('manage/clientinfo/queryClientIdNumberAndClientNames.do').then(result => {
@@ -74,7 +77,7 @@
         })
       },
       query() {
-        this.loading = true
+        this.changeSearchStatus(true)
         this.$emit("query", this.clientId)
       },
 
@@ -84,6 +87,8 @@
       search: Boolean,
     },
     computed: {
+      ...mapGetters(["SearchStatus"]),
+
       flag() {
         if (this.type == "Array") {
           this.clientId = []
@@ -92,7 +97,8 @@
           this.clientId = ""
           return true
         }
-      }
+      },
+
     }
   }
 </script>
