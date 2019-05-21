@@ -8,6 +8,7 @@ export default new Vuex.Store({
     aFoldStatus:false,
     height:750,
     searchStatus:false,
+    known:false,
   },
   mutations: {
     changeAFoldStatus (state) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     changeSearchStatus (state, flag) {
       state.searchStatus = flag
+    },
+    changeKnown (state, flag) {
+      state.known = flag
     }
   },
   actions: {
@@ -30,6 +34,9 @@ export default new Vuex.Store({
     changeSearchStatus ({ commit }, flag) {
       commit("changeSearchStatus", flag)
     },
+    changeKnown ({ commit }, flag) {
+      commit("changeKnown", flag)
+    },
   },
   getters: {
     Height(state){
@@ -38,5 +45,8 @@ export default new Vuex.Store({
     SearchStatus(state) {
       return state.searchStatus
     },
+    Known(state) {
+      return state.known
+    }
   }
 })

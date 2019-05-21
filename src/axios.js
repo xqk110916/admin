@@ -19,13 +19,13 @@ axios.interceptors.request.use(function (config) {
 })
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
-  // if (response.data.errorNo === 11002) {
-  //   router.push('/login')
-  // }
-  // if (!response.data.success) {
-  //   vm.$message.error(response.data.errorInfo)
-  //   return false
-  // }
+  if (response.data.errorNo === 11002) {
+    router.push('/login')
+  }
+  if (!response.data.success) {
+    vm.$message.error(response.data.errorInfo)
+    return false
+  }
   return response
 }, function (error) {
   // 对响应错误做点什么

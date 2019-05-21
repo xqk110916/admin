@@ -4,6 +4,12 @@
       <span class="name">{{g.companyName}}</span>
       <i class="iconfont icon-zhankai1" :title="title" @click="unfold"></i>
     </div>
+    <div :class="['hint',{'hide':Known}]" @click="hide"> 
+      <i class="iconfont icon-zuojiantou"></i>
+      <span title="点击隐藏该段文字">
+        &nbsp;&nbsp;&nbsp;&nbsp;温馨提示：如果你的屏幕较小导致页面横向出现滚动条，在不需要导航栏的情况下可以点击左侧按钮将其隐藏掉
+      </span>
+    </div>
     <div class="right" @mouseenter="changeClass1" @mouseleave="changeClass2">
       <p>sdagsdgjbbbkbkbkjsda</p>
       <i :class="['iconfont','mt',{'icon-sanjiaodown':flag,'icon-shangjiantou':!flag}]"></i>
@@ -17,7 +23,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions, mapGetters } from 'vuex'
 
   export default {
     name: "top",
@@ -28,6 +34,9 @@
         title:'收起列表',
         show:true,
       }
+    },
+    created() {
+      this.whetherHide()
     },
     methods: {
       unfold () {
@@ -61,12 +70,21 @@
         console.log("退出")
         this.changeClass2()
         this.$router.push('/Login')
+      },
+      hide () {
+        this.$store.dispatch("changeKnown", true)
+        window.localStorage.setItem('known',true)
+      },
+      whetherHide() {
+        let known = window.localStorage.getItem("known")
+        if(known) {
+          this.$store.dispatch("changeKnown", true)
+        }
       }
     },
     computed: {
-      ...mapState({
-        companyName: 'companyName'
-      })
+      ...mapState({companyName: 'companyName'}),
+      ...mapGetters(['Known'])
     }
   }
 </script>
@@ -80,11 +98,24 @@
     justify-content: space-between;
     border:none;
 
+    .hint {
+      color:#ccc;
+      font-size: 12px;
+      line-height: 46px;
+      float: left;
+      cursor: pointer;
+    }
+
+    .hide {
+      display: none;
+    }
+
     .left {
       float: left;
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
 
       .name {
         padding: 0 20px;
@@ -157,6 +188,43 @@
         text-overflow: ellipsis;
         font-size:14px;
       }
+    }
+  }
+
+  .icon-zuojiantou {
+    animation: BlendTrans 3s linear .5s infinite alternate;
+  }
+
+  @keyframes BlendTrans {
+    0%{
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @-webkit-keyframes BlendTrans {
+    0%{
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @-moz-keyframes BlendTrans {
+    0%{
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @-o-keyframes BlendTrans {
+    0%{
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
     }
   }
 </style>

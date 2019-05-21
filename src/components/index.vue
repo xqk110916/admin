@@ -119,6 +119,8 @@
 
   .el-main {
     padding: 0 !important;
+    min-width: 1180px;
+    box-sizing:border-box;
   }
 
   .routerViews {
@@ -132,10 +134,9 @@
     overflow: hidden;
   }
 
-  #search {
+  .search_bar {
     height: 40px;
     padding: 10px 0;
-    min-width: 900px;
-    display: flex;
+    // display: flex;
   }
 </style>
