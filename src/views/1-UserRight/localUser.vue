@@ -18,7 +18,7 @@
                     <el-button type="primary" class="top_search" size="small" @click="distributionArea">辖区权限</el-button>
                     <el-button type="primary" class="top_search" size="small" @click="distributionSub">子账权限</el-button>
                     <el-button type="primary" class="top_search" size="small" icon="el-icon-circle-plus-outline" @click="addinfo"> 新增 </el-button>
-                    <el-button type="primary" class="top_search" size="small" @click="replaceFun"> 刷新 </el-button>
+                    <el-button type="primary" class="top_search" size="small" @click="seleChangeZu"> 刷新 </el-button>
                 </div>
 
             </div>
@@ -53,8 +53,6 @@
                     </el-table-column>
                 </el-table>
             </div>
-            <Page :total="total" :sizeArr="[100,200,300]" @update:page="changePage" @update:pagesize="changePageSize">
-            </Page>
 
             <!-- dialog集合 -->
             <div class="dialog">
@@ -280,12 +278,12 @@
         created() {
             this.getId()
 
-            // this.getUserInfo()
-            // this.getSubNo()
-            // this.getListInfo()
-            // this.getExchangePro()
-            // this.getClientArea()
-            // this.restaurantsZu = this.optionsZu
+            this.seleChangeZu()
+            this.getSubNo()
+            this.getListInfo()
+            this.getExchangePro()
+            this.getClientArea()
+            this.restaurantsZu = this.optionsZu
         },
         mounted() {
 
@@ -296,25 +294,16 @@
             getId() {
                 this.OA = this.$route.params.id
             },
-
-            changePageSize(val) {
-                this.pagesize = val
-                this.query()
-            },
-            changePage(val) {
-                this.page = val
-                this.query()
-            },
             // 滚动加载事件
             handleScroll(e) {
-                // if (e == 0 && !this.scrollFlag) {
-                //     this.scrollFlag = true
-                //     this.query().then(() => {
-                //         this.scrollFlag = false
-                //     }, () => {
-                //         this.scrollFlag = false
-                //     })
-                // }
+                if (e == 0 && !this.scrollFlag) {
+                    this.scrollFlag = true
+                    this.seleChangeZu().then(() => {
+                        this.scrollFlag = false
+                    }, () => {
+                        this.scrollFlag = false
+                    })
+                }
             },
 
 
@@ -411,7 +400,7 @@
 
             },
             getClientArea: function () {
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/clientarea/queryAll.do').then(result => {
                         if(result) {
                             let arr = []
@@ -451,7 +440,7 @@
             },
             getListInfo: function () {
                 let url = this.url?"manage/nawaauserinfo/queryDepts.do":"manage/dept/queryAll.do"
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post(url).then(result => {
                         if (result && result.data.list !== null) {
                             this.optionSel = result.data.list;
@@ -469,7 +458,7 @@
                 })
             },
             getExchangePro: function () {
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/inner/underlying/queryAllExchangeProductUnderlying.do').then(result => {
                         if(result) {
                             var testT = [];
@@ -506,7 +495,7 @@
             //查询部门
             seleChange: function () {
                 let url = this.url?"manage/nawaauserinfo/queryGroups.do":"manage/group/queryAll.do"
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post(url, this.qs.stringify({deptName: this.bumenValue})).then(result => {
                         if(result) {
                             this.optionsZuSel = result.data.list;
@@ -516,7 +505,7 @@
                     })
                 })
                 //查询用户信息
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post(`manage/${this.url}userinfo/queryAllInfo.d`, this.qs.stringify({
                         deptName: this.bumenValue,
                         groupName: this.zuValue
@@ -535,12 +524,13 @@
             },
             //查询组
             seleChangeZu: function () {
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post(`manage/${this.url}userinfo/queryAllInfo.do`, this.qs.stringify({
                         deptName: this.bumenValue,
                         groupName: this.zuValue
                     })).then(result => {
                         if (result) {
+                            reslove()
                             this.CustomerInformation = result.data.userInfoModels;
                             this.setCurrent(this.CustomerInformation[0])
                             this.ind = 0
@@ -554,7 +544,7 @@
             },
             seleChangeForm: function () {
                 let url = this.url?"manage/nawaauserinfo/queryGroups.do":"manage/group/queryAll.do"
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post(url, this.qs.stringify({
                         deptName: this.form.dept
                     })).then(result => {
@@ -622,7 +612,7 @@
                 if (this.dialogTitle === "新增") {
                     this.$refs[formName].validate((valid) => {
                         if (valid) {
-                            return new Promise((resolve, reject) => {
+                            return new Promise((reslove, reject) => {
                                 this.axios.post(`manage/${this.url}userinfo/doAdd.do`, this.qs.stringify({
                                     account: this.form.account,
                                     password: this.form.password,
@@ -648,7 +638,7 @@
                         }
                     });
                 } else {
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post(`manage/${this.url}userinfo/doUpdate.do`, this.qs.stringify({
                             account: this.form.account,
                             name: this.form.name,
@@ -676,7 +666,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post(`manage/${this.url}userinfo/doDelete.do`, this.qs.stringify({
                             account: row.account
                         })).then(result => {
@@ -705,7 +695,7 @@
                 });
             },
             handAssignPermissions: function (index, row) {
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/role/queryRoles.do').then(result => {
                         if(result) {
                             let reles = result.data.roles
@@ -717,7 +707,7 @@
                                 this.data1.push(obj)
                             }
                             this.dialogAssignPermissions = true
-                            resolve(row)
+                            reslove(row)
                         }
                     })
                 }).then((row) => {
@@ -755,7 +745,7 @@
                         jsonObj["ids[" + i + "]"] = this.leftArr[i]
                     }
 
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post('manage/userinforole/assign.do', this.qs.stringify(jsonObj)).then(result => {
                             if (result) {
                                 this.$message({
@@ -775,7 +765,7 @@
                         jsonObj["ids[" + i + "]"] = this.rightArr[i]
                     }
 
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post('manage/userinforole/unassign.do', this.qs.stringify(jsonObj)).then(result => {
                              if (result) {
                                 this.$message({
@@ -818,7 +808,7 @@
                     return false;
                 }
 
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/userinfo/doUpdatePassword.do', this.qs.stringify({
                         account: this.formPassword.account,
                         password: this.formPassword.newPassword
@@ -859,7 +849,7 @@
                 this.seleShowSub = false;
                 this.form = JSON.parse(JSON.stringify(this.CustomerInformation[this.ind]));
 
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/inner/userProductPermission/query.do', this.qs.stringify({
                         userAccount: this.form.account
                     })).then(result => {
@@ -892,7 +882,7 @@
                 this.seleShowSub = false;
                 this.form = JSON.parse(JSON.stringify(this.CustomerInformation[this.ind]));
 
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/inner/traderProduct/queryTraderProductByUserAccount.do', this.qs.stringify({
                         userAccount: this.form.account
                     })).then(result => {
@@ -926,7 +916,7 @@
                 this.seleShowSub = false;
                 this.form = JSON.parse(JSON.stringify(this.CustomerInformation[this.ind]));
 
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/userareapermission/query.do', this.qs.stringify({
                         userAccount: this.form.account
                     })).then(result => {
@@ -959,7 +949,7 @@
                 this.form = JSON.parse(JSON.stringify(this.CustomerInformation[this.ind]));
                 let _this = this
 
-                return new Promise((resolve, reject) => {
+                return new Promise((reslove, reject) => {
                     this.axios.post('manage/usersubaccountpermission/query.do', this.qs.stringify({
                         userAccount: this.form.account
                     })).then(result => {
@@ -1034,7 +1024,7 @@
                     datas.userAccount = this.form.account;
                     datas.userProductPermissions = UserProductPermission;
 
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post('manage/inner/userProductPermission/doAdds.do', this.qs.stringify(datas)).then(result => {
                             if (result) {
                                 this.$message({
@@ -1066,7 +1056,7 @@
                     datas.userAccount = this.form.account;
                     datas.traderProducts = TraderProduct;
 
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post('manage/inner/traderProduct/doAdds.do', this.qs.stringify(datas)).then(result => {
                             if (result) {
                                 this.$message({
@@ -1096,7 +1086,7 @@
                     datas.userAccount = this.form.account;
                     datas.userAreaPermissions = UserAreaPermission;
 
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post('manage/userareapermission/doAdds.do', this.qs.stringify(datas)).then(result => {
                             this.areaArr = []
                             redirect(result, this)
@@ -1135,7 +1125,7 @@
                     datas.userAccount = this.form.account;
                     datas.userSubAccountPermissions = UserSubAccountPermission;
 
-                    return new Promise((resolve, reject) => {
+                    return new Promise((reslove, reject) => {
                         this.axios.post('manage/usersubaccountpermission/doAdds.do', this.qs.stringify(datas)).then(result => {
                             if (result) {
                                 this.$message({

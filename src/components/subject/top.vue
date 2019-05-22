@@ -11,7 +11,7 @@
       </span>
     </div>
     <div class="right" @mouseenter="changeClass1" @mouseleave="changeClass2">
-      <p>sdagsdgjbbbkbkbkjsda</p>
+      <p class="name">{{name}}</p>
       <i :class="['iconfont','mt',{'icon-sanjiaodown':flag,'icon-shangjiantou':!flag}]"></i>
 
       <div class="inner show" ref="inner">
@@ -24,23 +24,31 @@
 
 <script>
   import { mapState, mapActions, mapGetters } from 'vuex'
+  import bus from '../../public/bus'
 
   export default {
     name: "top",
     data() {
       return {
         flag: true,
-        time:'',
+        time:'',    //用于清除定时器
         title:'收起列表',
         show:true,
+        name:'请登录',
       }
     },
     created() {
       this.whetherHide()
+      bus.$on("userName",(name) => {
+        this.name = name
+      })
+      bus.$on("update:flag", (flag) => {
+        this.flag = flag
+        this.unfold()
+      })
     },
     methods: {
       unfold () {
-        console.log(this.$store)
         this.flag = !this.flag
         this.$emit("show", this.flag)
         if(this.flag) {
@@ -67,12 +75,18 @@
         this.$router.push('/info')
       },
       quit () {
-        console.log("退出")
         this.changeClass2()
-        this.$router.push('/Login')
+        return new Promise((reslove, reject) => {
+          this.axios.post('manage/userinfo/logout.do').then(result => {
+            if(result) {
+              this.$router.push('/Login')
+            } 
+          })
+        })
       },
       hide () {
         this.$store.dispatch("changeKnown", true)
+
         window.localStorage.setItem('known',true)
       },
       whetherHide() {
@@ -80,7 +94,7 @@
         if(known) {
           this.$store.dispatch("changeKnown", true)
         }
-      }
+      },
     },
     computed: {
       ...mapState({companyName: 'companyName'}),
@@ -97,6 +111,7 @@
     display: flex;
     justify-content: space-between;
     border:none;
+    min-width: 1100px;
 
     .hint {
       color:#ccc;
@@ -144,6 +159,10 @@
       align-items: center;
       position: relative;
       cursor:pointer;
+
+      .name {
+        text-align: center;
+      }
 
       .inner {
         position: absolute;

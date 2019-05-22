@@ -120,8 +120,8 @@
             }
         },
         created() {
-            // this.permissScopeSel = letDate.permissScopeSel;
-            // this.getPermissData();
+            this.permissScopeSel = this.g.letDate.permissScopeSel;
+            this.getPermissData();
         },
         methods: {
             replaceFun: function () {
@@ -350,4 +350,24 @@
     .right {
         float: right;
     }
+    .xblockstyle {
+        display: block;
+        margin-bottom: 10px;
+        padding: 5px 20px;
+        height: 60px;
+        line-height: 50px;
+        border-bottom: 1px solid #ccc;
+      }
+      .el-table--border th{
+        background-color: rgb(242,242,242);
+      }
+      .el-table th{
+        text-align: center;
+      }
+      .el-table td{
+        padding: 8px 0;
+      }
+      table tbody tr td {
+        text-align: center !important;
+      }
 </style>

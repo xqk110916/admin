@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import bus from '@/public/bus'
   export default {
     data() {
       return {
@@ -44,6 +45,7 @@
       // 检查去重
       CheckToHeavy(obj) {
         window.sessionStorage.setItem("activeTag",`${obj.name},${obj.path}`)
+
         if (this.editableTabs.length) {
           for (let i = 0; i < this.editableTabs.length; i++) {
             if (obj.name == this.editableTabs[i].title) {
@@ -77,6 +79,10 @@
 
         this.editableTabsValue = activeName;
         this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+        if(!this.editableTabs.length) {
+          window.sessionStorage.removeItem("activeTag")
+          this.$router.push('/')
+        }
       },
 
     }

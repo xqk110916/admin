@@ -90,7 +90,7 @@
             }
         },
         created() {
-            // this.getRoleData()
+            this.getRoleData()
         },
         methods: {
             // 滚动加载事件
@@ -327,7 +327,7 @@
         watch: {
 
         },
-        components: {
+        computed: {
             ...mapGetters(['Height']),
         }
     }

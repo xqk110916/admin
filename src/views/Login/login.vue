@@ -21,7 +21,8 @@
         </div>
       </div>
       <div class="enter">
-        <button @click.enter="login" class="btn" :disabled="loginStatus"> <i :class="['el-icon-iconName', {'el-icon-loading':loginStatus}]"></i>  {{loginStatus?"登陆中":"登陆"}} </button>
+        <button @click.enter="login" class="btn" :disabled="loginStatus"> <i
+            :class="['el-icon-iconName', {'el-icon-loading':loginStatus}]"></i> {{loginStatus?"登陆中":"登陆"}} </button>
         <p>注：生产环境请使用OA或禅道账户登陆</p>
       </div>
     </div>
@@ -33,26 +34,41 @@
     name: 'Login',
     data() {
       return {
-        loginStatus:false,
+        loginStatus: false,
 
-        username:'managerRoot',
-        password:'123456',
+        username: 'managerRoot',
+        password: '123456',
       }
     },
     methods: {
       login() {
         this.loginStatus = true
-        this.axios.post('manage/userinfo/doLogin.do',{
-          account: this.username,
-          password: this.password,
-        }).then( result => {
-          this.loginStatus = false
-          if(result.data.success) {
-            this.$router.push('/')
-          }
+        return new Promise((reslove, reject) => {
+          this.axios.post('manage/userinfo/doLogin.do', this.qs.stringify({
+            account: this.username,
+            password: this.password,
+          })).then(result => {
+            reslove()
+            this.loginStatus = false
+            if (result.data.success) {
+              this.$router.push('/')
+            }
+          })
+        }).then(() => {
+          this.getUserInfo()
         })
-      }
-    
+      },
+      getUserInfo() {
+        return new Promise((reslove, reject) => {
+          this.axios.post('manage/userinfo/queryUserInfo.do').then(result => {
+            if (result) {
+              let name = result.data.userInfo.name
+              bus.$emit("userName", name)
+            }
+          })
+        })
+      },
+
     }
   }
 </script>
@@ -86,7 +102,7 @@
 
       .user {
         height: 174px;
-        padding:20px;
+        padding: 20px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -118,8 +134,8 @@
             .iconfont {
               font-size: 20px;
               padding: 0 10px;
-              color:#d8d6d6;
-              border-right:1px solid #d8d6d6;
+              color: #d8d6d6;
+              border-right: 1px solid #d8d6d6;
             }
 
             input {
@@ -150,9 +166,9 @@
         }
 
         p {
-          font-size:14px;
+          font-size: 14px;
           margin-top: 10px;
-          color:#ed5353;
+          color: #ed5353;
         }
       }
     }

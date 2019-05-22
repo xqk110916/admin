@@ -2,7 +2,7 @@
   <div>
     <el-container style="height:100%;">
       <el-header>
-        <Top @show="onShow"></Top>
+        <Top @show="onShow" ref="top"></Top>
       </el-header>
       <div class="main">
         <el-aside class="nav" style="width:218px;" ref="nav">
@@ -29,6 +29,7 @@
   import Top from './subject/top' //顶部信息
   import Tags from './subject/tags' //导航标签组件
   import Vue from 'vue'
+  import bus from '@/public/bus'
 
   Vue.directive('loadmore', {
     bind(el, binding) {
@@ -53,6 +54,7 @@
     mounted() {
       // 刷新界面过后保留当前选中的界面
       this.createSetTag()
+
     },
     methods: {
       onShow(flag) {
@@ -75,6 +77,16 @@
           }
           this.onAddTag(obj)
         }
+      },
+      getUserInfo() {
+        return new Promise((reslove, reject) => {
+          this.axios.post('manage/userinfo/queryUserInfo.do').then(result => {
+            if (resutl) {
+              let name = result.data.userInfo.name
+              bus.$emit("userName", name)
+            }
+          })
+        })
       },
     },
     components: {
@@ -120,7 +132,7 @@
   .el-main {
     padding: 0 !important;
     min-width: 1180px;
-    box-sizing:border-box;
+    box-sizing: border-box;
   }
 
   .routerViews {

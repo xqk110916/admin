@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import not from '../views/404.vue'
 import defaults from '../views/default.vue'
+import login from '../views/Login/login.vue'
 
 import localUser from '../views/1-UserRight/localUser.vue'
 import PFCG from '../views/1-UserRight/PFCG.vue'
@@ -31,6 +32,10 @@ const router = new Router({
       path:'/errorInfo',
       name:'not',
       component:not,
+    },{
+      path:'/Login',
+      name:'Login',
+      component:login,
     },
     
     {

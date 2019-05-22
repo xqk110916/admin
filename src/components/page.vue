@@ -18,7 +18,7 @@
       }
     } ,
     created(){
-     
+     this.setDefault()
     },
     methods:{
       handleSizeChange(val) {
@@ -26,7 +26,7 @@
         this.$emit("update:pagesize", val)
       },
       handlePageChange(val) {
-        this.page = val
+        this.pages = val
         this.$emit("update:page", val)
       },
       setDefault() {
