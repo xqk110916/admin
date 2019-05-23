@@ -12,7 +12,6 @@
     name:'page',
     data(){
       return {
-        totals: this.total,
         pages: this.page,
         pagesizes: this.pagesize,
       }
@@ -30,9 +29,6 @@
         this.$emit("update:page", val)
       },
       setDefault() {
-        if(!this.page) {
-          this.pages = 1
-        }
         if(!this.pagesize) {
           if(this.sizeArr) {
             this.pagesizes = this.sizeArr[0]
@@ -43,15 +39,24 @@
       }
     },
     props:{
-      total:Number,
-      page:Number,
+      total:{
+        type:Number,
+        required: true
+      },
+      page:{
+        type:Number,
+        default:1,
+      },
       pagesize:Number,
       sizeArr:Array
     },
     computed: {
       sizeArrs() {
         return this.sizeArr?this.sizeArr:[20,50,100]
-      }
+      },
+      totals() {
+        return this.total
+      },
     },
   }
 </script>

@@ -13,10 +13,12 @@ import allClient from '../views/2-web/allClient.vue'
 import audit from '../views/2-web/audit.vue'
 import seeAudit from '../views/2-web/seeAudit.vue'
 
-import area from '../views/3-information/area.vue'
-import bank from '../views/3-information/bank.vue'
+import areaInfo from '../views/3-information/areaInfo.vue'
+import bankInfo from '../views/3-information/bankInfo.vue'
 import clientDetails from '../views/3-information/clientDetails.vue'
-import section from '../views/3-information/section.vue'
+import sectionInfo from '../views/3-information/sectionInfo.vue'
+
+import capitaAccount from '@/views/4-FundsManagement/capitaAccount'
 
 let vm = new Vue()
 
@@ -29,7 +31,7 @@ const router = new Router({
       name:"defaults",
       component:defaults,
     },{
-      path:'/errorInfo',
+      path:'/notFound',
       name:'not',
       component:not,
     },{
@@ -67,28 +69,34 @@ const router = new Router({
     },
 
     {
-      path:'/area',
-      name:'area',
-      component:area
+      path:'/areaInfo',
+      name:'areaInfo',
+      component:areaInfo 
     },{
-      path:'/bank',
-      name:'bank',
-      component:bank
+      path:'/bankInfo',
+      name:'bankInfo',
+      component:bankInfo 
     },{
       path:'/clientDetails',
       name:'clientDetails',
       component:clientDetails
     },{
-      path:'/section',
-      name:'section',
-      component:section
+      path:'/sectionInfo',
+      name:'sectionInfo',
+      component:sectionInfo 
+    },
+    
+    {
+      path:'/capitaAccount',
+      name:'capitaAccount',
+      component:capitaAccount 
     },
   ]
 })
 
 router.beforeEach((to, from, next) => {
   if(!to.name) {
-    next('/errorInfo')
+    next('/notFound')
   } else {
     next()
   }

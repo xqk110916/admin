@@ -45,7 +45,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <Page :total="60" @update:page="changePage" @update:pagesize="changePageSize"></Page>
+    <Page :total="total" @update:page="changePage" @update:pagesize="changePageSize"></Page>
   </div>
 </template>
 
@@ -302,10 +302,6 @@
 </script>
 
 <style scoped>
-  .right {
-    float: right;
-  }
-
   .deal-status1 input {
     color: red !important;
   }

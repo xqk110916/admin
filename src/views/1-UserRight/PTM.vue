@@ -347,9 +347,6 @@
 </script>
 
 <style scoped>
-    .right {
-        float: right;
-    }
     .xblockstyle {
         display: block;
         margin-bottom: 10px;

@@ -3,17 +3,15 @@
   <div>
     <!-- 头部 -->
     <div class="search_bar">
-      <div>
-        <el-select v-model="userNameValue" multiple filterable placeholder="请输入你要查询的用户名">
-          <el-option v-for="item in userNameValueOptions" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-        <el-select v-model="status" multiple placeholder="请选择是否允许登陆" :class="[dealClass]" @change="statusChange"
-          clearable>
-          <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-      </div>
+      <el-select v-model="userNameValue" multiple filterable placeholder="请输入你要查询的用户名">
+        <el-option v-for="item in userNameValueOptions" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+      <el-select v-model="status" multiple placeholder="请选择是否允许登陆" :class="[dealClass]" @change="statusChange"
+        clearable>
+        <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
       <div class="right">
         <el-button type="primary" size="small" @click="query"> 查询 </el-button>
         <el-button type="primary" size="small" @click="replaceFun"> 刷新 </el-button>
@@ -42,7 +40,7 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-table :data=details stripe style="width: 50%;" border height="100%" stripe fit class="tables"
+      <el-table :data=details stripe style="width: 50%;" border :height="Height" stripe fit class="tables"
         highlight-current-row>
         <el-table-column type="index" width="60"> </el-table-column>
         <el-table-column prop="clientNoInner" label="客户编号"> </el-table-column>
@@ -278,7 +276,11 @@
 </script>
 
 <style scoped>
-.right {
-  float: right;
+.table_box {
+  display: flex;
+}
+
+.el-table:nth-child(2) {
+  margin-left: 10px;
 }
 </style>

@@ -55,6 +55,7 @@
       }
     },
     created() {
+      // this.getAllClient()
       if(window.addEventListener) {
         window.addEventListener("keyup", this.enter, true)
       } else {

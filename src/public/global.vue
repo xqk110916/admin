@@ -681,51 +681,58 @@
       path: '',
       children: [{
         name: '银行信息管理',
-        path: '/bank'
+        path: '/bankInfo'
       }, {
         name: '部门信息管理',
-        path: '/section'
+        path: '/sectionInfo'
       }, {
         name: '辖区信息管理',
-        path: '/area'
+        path: '/areaInfo'
       }, {
         name: '客户基本资料 ',
         path: '/clientDetails'
       }, ]
     }, {
       name: '客户资金管理',
-      path: '',
       children: [{
         name: '客户资金账户',
-        path: '/capitalAccount '
+        path: '/capitaAccount'
+      },{
+        name: '客户出入金',
+        path: '/CustomerDeposit'
+      },{
+        name: '客户资金变动',
+        path: '/mof'
+      },{
+        name: '客户资金流水（老版本）',
+        path: '/jaoc'
       }, ]
     }, {
       name: '报价配置管理',
-      path: '',
       children: [{
-        name: '',
-        path: ''
+        name: '节假日扣减天数',
+        path: '/Holiday'
+      },{
+        name: '交易参数配置',
+        path: '/tdpt'
       }, ]
     }, {
       name: '委托单管理',
-      path: '',
       children: [{
-        name: '',
-        path: ''
+        name: '委托列表',
+        path: '/entrust'
       }, ]
     }, {
       name: '成交单管理',
-      path: '',
       children: [{
-        name: '',
-        path: ''
+        name: '成交列表',
+        path: '/mab'
       }, ]
     }, {
       name: '监控管理',
-      path: '',
       children: [{
-        name: '',
-        path: ''
+        name: '总账风险参数配置',
+        path: '/GeneralLd'
       }, ]
     }, {
       name: '结算管理',
