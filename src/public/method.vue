@@ -3,22 +3,22 @@
   const vm = new Vue()
   export default {
     // 将格林威治时间格式转化为20190307格式的字符串
-    timeFormat(time) {
+    timeFormat(time, format = '') {
       let y = time.getFullYear().toString();
       let m = time.getMonth() + 1;
       let d = time.getDate();
       m = m.toString().padStart(2, "0")
       d = d.toString().padStart(2, "0")
-      return y + '' + m + '' + d; //返回格式  "20191027" 字符串
+      return y + format + m + format + d; //返回格式  "20191027" 字符串
     },
     // 将yyyyMMdd格式的时间转换成格林威治格式的时间
     timeyy(res) {
       var r = res.replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3")
       return new Date(r)
     },
-    getNow(){
-      let now = new Date(Date.now())
-      return this.timeFormat(now)
+    getNow(format){
+      let now = new Date(Date.now()) 
+      return this.timeFormat(now, format)
     },
     // 获取当月第一天
     getFirstDay () {
@@ -87,6 +87,16 @@
         }
       })
     },
-    
+    promise(url, params = {}) {
+      return new Promise((reslove, reject) => {
+        this.axios.post(url, this.qs.stringify(params)).then(result => {
+          if(result) {
+            reslove(result)
+          } else {
+            reject(result)
+          }
+        })
+      })
+    }
   }
 </script>
