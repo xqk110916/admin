@@ -19,6 +19,7 @@ import clientDetails from '../views/3-information/clientDetails.vue'
 import sectionInfo from '../views/3-information/sectionInfo.vue'
 
 import capitaAccount from '@/views/4-FundsManagement/capitaAccount'
+import CustomerDeposit from '@/views/4-FundsManagement/CustomerDeposit'
 
 let vm = new Vue()
 
@@ -90,7 +91,13 @@ const router = new Router({
       path:'/capitaAccount',
       name:'capitaAccount',
       component:capitaAccount 
+    },{
+      path:'/CustomerDeposit',
+      name:'CustomerDeposit',
+      component:CustomerDeposit 
     },
+    
+    
   ]
 })
 
