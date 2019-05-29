@@ -104,13 +104,13 @@
                             <el-input v-model="formPassword.account" auto-complete="off" :disabled=true> </el-input>
                         </el-form-item>
 
-                        <el-form-item label="新密码" :label-width="formLabelWidth" prop="newPassword">
+                        <el-form-item label="新密码" :label-width="formLabelWidth" prop="newPassword" placeholder="密码最少8位；大写字母、小写字母、数字、特殊字符至少两种">
                             <el-input type="password" v-model="formPassword.newPassword" auto-complete="off">
                             </el-input>
                         </el-form-item>
 
                         <el-form-item label="确认新密码" :label-width="formLabelWidth" prop="checkPassword">
-                            <el-input type="password" v-model="formPassword.checkPassword" auto-complete="off">
+                            <el-input type="password" v-model="formPassword.checkPassword" auto-complete="off" placeholder="密码最少8位；大写字母、小写字母、数字、特殊字符至少两种">
                             </el-input>
                         </el-form-item>
                     </el-form>
