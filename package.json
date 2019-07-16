@@ -10,6 +10,8 @@
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.4.5",
+    "fundebug-javascript": "^1.8.0",
+    "fundebug-vue": "^0.0.1",
     "jquery": "^3.4.1",
     "qs": "^6.7.0",
     "vue": "^2.6.10",

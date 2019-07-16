@@ -81,7 +81,7 @@
     startC() {
       this.axios.post('manage/inner/businessinfo/query.do').then(result => {
         if(result.data.success) {
-          let time = new Date(result.businessInfo.closeDate);
+          let time = new Date(result.data.businessInfo.closeDate);
           let sj = this.timeFormat(time)
           return sj
         }
