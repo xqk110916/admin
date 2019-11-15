@@ -1,5 +1,6 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/tm_gm/'
-    : '/'
+  devServer: {
+    proxy: 'https://biz.nanhuacapital.com/t_xqk/'
+  },
+  publicPath: process.env.NODE_ENV === 'production' ? '/t_xqk/' : '/'
 }

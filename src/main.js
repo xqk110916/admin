@@ -1,28 +1,25 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router/router'
-import store from './store/store'
+import App from './App'
+import router from './router'
+import store from './store'
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
+import base from './base'
+import axios from 'axios'
+import Qs from 'qs'
 import './plugins/element.js'
-// 自定义属性
-import g from './public/global'
-// 自定义方法
-import way from './public/method.vue'
-import axios from './axios'
-import qs from 'qs'
-import $ from 'jquery'
+import './public/directives.js'
 
+Vue.use(iView)
+Vue.use(base)
 Vue.config.productionTip = false
-Vue.prototype.g = g
-Vue.prototype.way = way
 Vue.prototype.axios = axios
-Vue.prototype.qs = qs
-Vue.prototype.$ = $
+Vue.prototype.qs = Qs
 
 new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
-
-
-

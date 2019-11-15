@@ -1,43 +1,49 @@
 <template>
   <div>
-    <x-table :datas="datas" :loadStatus="false">
-      <div>
-        <el-table-column prop="name" label="姓名"></el-table-column>
-        <el-table-column prop="age" label="年龄"></el-table-column>
-        <el-table-column prop="sex" label="性别"></el-table-column>
-      </div>
-    </x-table>
+    <audio src="../public/111.mp3" ref="audio"> 您的浏览器不支持 audio 标签。  </audio>
+    <div class="box">
+        <div class="line"></div>
+    </div>
+    <el-button @click="play">开始/暂停</el-button>
   </div>
 </template>
 
 <script>
-import xTable from '@/components/costom/table'
 export default {
-  name:'test',
   data(){
     return {
-      datas:[
-        {
-          name:'张三',
-          age:18,
-          sex: '男'
-        },
-        {
-          name:'张三',
-          age:18,
-          sex: '男'
-        },
-        {
-          name:'张三',
-          age:18,
-          sex: '男'
-        },
-      ]
+      flag: false,  //代表播放和暂停,false代表目前是暂停状态
     }
   },
+  created(){
+    
+  },
+  methods: {
+    play() {
+      if(this.flag) {
+        console.log(this.$refs)
+      }
+    },
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+* {
+    margin: 0;
+    padding: 0;
+}
+.box,.line {
+    height: 10px;
+}
+.box {
+    width: 200px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    margin-top: 100px;
+}
+.line {
+    width: 0;
+    background: #f00;
+}
 </style>
