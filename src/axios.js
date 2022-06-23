@@ -8,7 +8,7 @@ const vm = new Vue()
 
 axios.defaults.baseURL = 'https://biz.nanhuacapital.com/tm_gm/'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
+// 测试
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   return config
